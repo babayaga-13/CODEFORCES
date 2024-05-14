@@ -2,6 +2,15 @@
 #define ll long long
 #define endl "\n"
 using namespace std;
+bool prime(int x)
+{
+    for (int i = 2; i * i <= x; i++)
+    {
+        if (x % i == 0)
+            return false;
+    }
+    return true;
+}
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -13,6 +22,20 @@ int main()
     {
         ll n;
         cin >> n;
-        cout << (1 + n) * (1 + n + n) << endl;
+        int a = 1 + n;
+        while (1)
+        {
+            if (prime(a))
+                break;
+            a++;
+        }
+        int b = a + n;
+        while (1)
+        {
+            if (prime(b))
+                break;
+            b++;
+        }
+        cout << a * b << endl;
     }
 }

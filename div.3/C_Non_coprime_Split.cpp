@@ -2,7 +2,7 @@
 #define ll long long
 #define endl "\n"
 using namespace std;
-const int N = 1e6 + 7;
+const int N = 1e7 + 7;
 int prime[N] = {0};
 void sieve()
 {
@@ -29,14 +29,19 @@ int main()
     {
         int l, r;
         cin >> l >> r;
+        int f = 0;
         for (int i = l; i <= r; i++)
         {
             if (prime[i] == 0)
                 continue;
             else
             {
-                cout <<
+                cout << prime[i] << " " << i - prime[i] << endl;
+                f++;
+                break;
             }
         }
+        if (f == 0)
+            cout << "-1\n";
     }
 }

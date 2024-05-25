@@ -1,82 +1,124 @@
-#include <iostream>
-#include <string>
+#include <bits/stdc++.h>
+#define ll long long
+#define endl "\n"
 using namespace std;
-
-string distributeInstructions(int n, string instructions)
+void solve()
 {
-    // Initialize coordinates for rover and helicopter
-    int x_rover = 0, y_rover = 0;
-    int x_helicopter = 0, y_helicopter = 0;
-    int money = 0; // Charlie's earned money
-
-    // Initialize result string
-    string result = "";
-
-    // Iterate through the instructions
-    for (int i = 0; i < n; ++i)
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    vector<int> a, b, c, d;
+    for (int i = 0; i < n; i++)
     {
-        char instruction = instructions[i];
-        cout << "Processing instruction " << i << ": " << instruction << endl;
-
-        // Assign instruction alternatively to rover and helicopter
+        if (s[i] == 'N')
+            a.push_back(i);
+        if (s[i] == 'S')
+            b.push_back(i);
+        if (s[i] == 'W')
+            c.push_back(i);
+        if (s[i] == 'E')
+            d.push_back(i);
+    }
+    vector<char> ans(n);
+    int i = 0;
+    for (i = 0; i < min(a.size(), b.size()); i++)
+    {
         if (i % 2 == 0)
         {
-            // Assign to rover
-            result += 'R';
-            // Update rover's coordinates
-            if (instruction == 'N')
-                y_rover++;
-            else if (instruction == 'S')
-                y_rover--;
-            else if (instruction == 'E')
-                x_rover++;
-            else if (instruction == 'W')
-                x_rover--;
+            ans[a[i]] = 'R';
+            ans[b[i]] = 'R';
         }
         else
         {
-            // Assign to helicopter
-            result += 'H';
-            // Update helicopter's coordinates
-            if (instruction == 'N')
-                y_helicopter++;
-            else if (instruction == 'S')
-                y_helicopter--;
-            else if (instruction == 'E')
-                x_helicopter++;
-            else if (instruction == 'W')
-                x_helicopter--;
+            ans[a[i]] = 'H';
+            ans[b[i]] = 'H';
         }
-
-        // Check if both devices reached the same coordinates
-        if (x_rover == x_helicopter && y_rover == y_helicopter)
-        {
-            return result;
-        }
-
-        // Update Charlie's earned money at the end of each month
-        if (i % 2 != 0)
-            money++;
     }
-
-    // If both devices didn't reach the same coordinates, return "NO"
-    return "NO";
+    for (; i < max(a.size(), b.size()); i += 2)
+    {
+        if (i < b.size())
+        {
+            if (i + 1 == b.size())
+            {
+                cout << "NO\n";
+                return;
+            }
+            ans[b[i]] = 'R';
+            ans[b[i + 1]] = 'H';
+        }
+        else if (i < a.size())
+        {
+            if (i + 1 == a.size())
+            {
+                cout << "NO\n";
+                return;
+            }
+            ans[a[i]] = 'R';
+            ans[a[i + 1]] = 'H';
+        }
+    }
+    i = 0;
+    for (i = 0; i < min(c.size(), d.size()); i++)
+    {
+        if (i % 2 != 0)
+        {
+            ans[c[i]] = 'R';
+            ans[d[i]] = 'R';
+        }
+        else
+        {
+            ans[c[i]] = 'H';
+            ans[d[i]] = 'H';
+        }
+    }
+    for (; i < max(c.size(), d.size()); i += 2)
+    {
+        if (i < d.size())
+        {
+            if (i + 1 == d.size())
+            {
+                cout << "NO\n";
+                return;
+            }
+            ans[d[i]] = 'R';
+            ans[d[i + 1]] = 'H';
+        }
+        else if (i < c.size())
+        {
+            if (i + 1 == c.size())
+            {
+                cout << "NO\n";
+                return;
+            }
+            ans[c[i]] = 'R';
+            ans[c[i + 1]] = 'H';
+        }
+    }
+    int count1 = 0, count2 = 0;
+    for (char ch : ans)
+        if (ch == 'R')
+            count1++;
+        else
+            count2++;
+    if (count1 == 0 || count2 == 0)
+    {
+        cout << "NO\n";
+        return;
+    }
+    for (char ch : ans)
+        cout << ch;
+    cout << endl;
 }
-
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     int t;
     cin >> t;
-
     while (t--)
     {
-        int n;
-        string instructions;
-        cin >> n >> instructions;
-
-        // Output the result of distributing instructions
-        cout << distributeInstructions(n, instructions) << endl;
+        solve();
     }
-
-    return 0;
 }

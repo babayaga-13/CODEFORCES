@@ -24,30 +24,31 @@ int main()
     {
         int n;
         cin >> n;
-        vector<int> v(n + 1, 0);
-        for (int i = 0; i < n; i++)
+
+        string s;
+        cin >> s;
+        vector<int> a(n + 1, 0), c(n + 1);
+        for (int i = 1; i <= n; i++)
         {
-            int x;
-            cin >> x;
-            v[x]++;
+            if (s[i - 1] == '1')
+                a[i] = 1;
         }
-        int ans = 0;
-        for (int i = 2; i <= 2 * n; i++)
+        long long ans = 0;
+        for (int i = n; i > 0; i--)
         {
-            int c = 0;
-            for (int j = 1; j < (i + 1) / 2; j++)
+            for (int j = i; j <= n; j += i)
             {
-                if (i - j > n)
-                    continue;
-                c += min(v[j], v[i - j]);
+                if (a[j])
+                    break;
+                c[j] = i;
             }
-            if (i % 2 == 0)
-            {
-                c += v[i / 2] / 2;
-            }
-            ans = max(ans, c);
         }
-        cout << ans << endl;
+        for (int i = 1; i <= n; i++)
+        {
+            if (!a[i])
+                ans += c[i];
+        }
+        cout << ans << '\n';
     }
     return 0;
 }

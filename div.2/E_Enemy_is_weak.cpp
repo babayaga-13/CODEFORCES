@@ -19,34 +19,39 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
         int n;
         cin >> n;
-        vector<int> v(n + 1, 0);
+        vector<int> arr(n);
+        pbds<ll> p, p2;
+        int t = 0;
         for (int i = 0; i < n; i++)
         {
-            int x;
-            cin >> x;
-            v[x]++;
+            cin >> arr[i];
+            p2.insert(arr[i]);
         }
-        int ans = 0;
-        for (int i = 2; i <= 2 * n; i++)
+        p.insert(arr[0]);
+
+        if (n == 1)
         {
-            int c = 0;
-            for (int j = 1; j < (i + 1) / 2; j++)
-            {
-                if (i - j > n)
-                    continue;
-                c += min(v[j], v[i - j]);
-            }
-            if (i % 2 == 0)
-            {
-                c += v[i / 2] / 2;
-            }
-            ans = max(ans, c);
+            cout << 0 << endl;
+            break;
         }
+
+        ll ans = 0;
+        for (int i = 1; i < n - 1; i++)
+        {
+            ll x = arr[i];
+            ll cnt = p.order_of_key(x);
+            ll fir = p2.order_of_key(x);
+            ll aft = fir - cnt;
+            ll bef = p.size() - cnt;
+            ans += aft * bef;
+            p.insert({x});
+        }
+
         cout << ans << endl;
     }
     return 0;

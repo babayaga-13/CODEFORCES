@@ -60,6 +60,9 @@
     "*.embeddedhtml": "html",
     "random": "cpp",
     "numeric": "cpp",
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "chrono": "cpp",
+    "limits": "cpp",
+    "valarray": "cpp"
   }
 }

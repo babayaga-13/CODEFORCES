@@ -22,27 +22,23 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, k;
-        cin >> n >> k;
+        int n;
+        cin >> n;
         vector<int> v(n);
+        int c = 0, f = 0;
         for (int i = 0; i < n; i++)
-            cin >> v[i];
-        int ans = 0;
-        for (int i = 30; i >= 0; i--)
         {
-            int c = 0;
-            for (int j = 0; j < n; j++)
-            {
-                if (!(v[j] & (1 << i)))
-                    c++;
-            }
-            if (c <= k)
-            {
-                k -= c;
-                ans ^= (1 << i);
-            }
+            cin >> v[i];
+            if (v[i] == 0)
+                c++;
+            if (v[i] > 1)
+                f++;
         }
-        cout << ans << endl;
+        if (c <= (n + 1) / 2)
+            cout << "0\n";
+        else if (f > 0 || c == n)
+            cout << "1\n";
+        else
+            cout << "2\n";
     }
-    return 0;
 }

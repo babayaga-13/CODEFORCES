@@ -22,25 +22,19 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, k;
-        cin >> n >> k;
-        vector<int> v(n);
-        for (int i = 0; i < n; i++)
+        int n, k, x;
+        cin >> n >> k >> x;
+        vector<int> v(n + 1);
+        for (int i = 1; i <= n; i++)
             cin >> v[i];
-        int ans = 0;
-        for (int i = 30; i >= 0; i--)
+        sort(v.rbegin(), v.rend() - 1);
+        for (int i = 1; i <= n; i++)
+            v[i] += v[i - 1];
+        ll ans = INT_MIN;
+        for (int i = 0; i <= k; i++)
         {
-            int c = 0;
-            for (int j = 0; j < n; j++)
-            {
-                if (!(v[j] & (1 << i)))
-                    c++;
-            }
-            if (c <= k)
-            {
-                k -= c;
-                ans ^= (1 << i);
-            }
+            ll cur = v[n] - 2 * v[min(x + i, n)] + v[i];
+            ans = max(ans, cur);
         }
         cout << ans << endl;
     }

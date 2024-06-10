@@ -22,27 +22,25 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, k;
-        cin >> n >> k;
-        vector<int> v(n);
+        string s;
+        cin >> s;
+        int n = s.size();
+        int a = 0, b = 0;
         for (int i = 0; i < n; i++)
-            cin >> v[i];
-        int ans = 0;
-        for (int i = 30; i >= 0; i--)
         {
-            int c = 0;
-            for (int j = 0; j < n; j++)
+            if (s[i] == 'A')
+                a++;
+            if (s[i] == 'B')
             {
-                if (!(v[j] & (1 << i)))
-                    c++;
-            }
-            if (c <= k)
-            {
-                k -= c;
-                ans ^= (1 << i);
+                if (a > 0)
+                {
+                    a--;
+                }
+                else
+                    b++;
             }
         }
-        cout << ans << endl;
+        cout << a + (b % 2) << endl;
     }
     return 0;
 }

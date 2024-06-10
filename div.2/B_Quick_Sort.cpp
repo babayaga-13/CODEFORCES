@@ -25,24 +25,14 @@ int main()
         int n, k;
         cin >> n >> k;
         vector<int> v(n);
+        int x = 1;
         for (int i = 0; i < n; i++)
-            cin >> v[i];
-        int ans = 0;
-        for (int i = 30; i >= 0; i--)
         {
-            int c = 0;
-            for (int j = 0; j < n; j++)
-            {
-                if (!(v[j] & (1 << i)))
-                    c++;
-            }
-            if (c <= k)
-            {
-                k -= c;
-                ans ^= (1 << i);
-            }
+            cin >> v[i];
+            if (v[i] == x)
+                x++;
         }
-        cout << ans << endl;
+        cout << (n - x + k) / k << endl;
     }
     return 0;
 }

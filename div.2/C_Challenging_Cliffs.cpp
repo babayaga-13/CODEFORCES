@@ -18,29 +18,34 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
+    int t = 1;
     cin >> t;
     while (t--)
     {
-        int n, m;
-        cin >> n >> m;
-        int a = n, b = 1, c = m, d = 1;
-        for (int i = 1; i <= n; i++)
+        int n;
+        cin >> n;
+        vector<int> v(n);
+        for (int i = 0; i < n; i++)
+            cin >> v[i];
+        sort(v.begin(), v.end());
+        int x = 0;
+        int m = INT_MAX;
+        for (int i = 1; i < n; i++)
         {
-            for (int j = 1; j <= m; j++)
+            int z = v[i] - v[i - 1];
+            if (z < m)
             {
-                char s;
-                cin >> s;
-                if (s == '#')
-                {
-                    a = min(a, i);
-                    b = max(b, i);
-                    c = min(c, j);
-                    d = max(d, j);
-                }
+                m = z;
+                x = i;
             }
         }
-        cout << (b + a + 1) / 2 << " " << (d + c + 1) / 2 << endl;
+        if (n == 2)
+            x = 0;
+        for (int i = x; i < n; i++)
+            cout << v[i] << " ";
+        for (int i = 0; i < x; i++)
+            cout << v[i] << " ";
+        cout << endl;
     }
     return 0;
 }

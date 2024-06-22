@@ -18,29 +18,25 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t;
+    int t = 1;
     cin >> t;
     while (t--)
     {
-        int n, m;
-        cin >> n >> m;
-        int a = n, b = 1, c = m, d = 1;
-        for (int i = 1; i <= n; i++)
+        ll x, y, z, k;
+        cin >> x >> y >> z >> k;
+        ll ans = 0;
+        for (ll i = 1; i <= x; i++)
         {
-            for (int j = 1; j <= m; j++)
+            for (ll j = 1; j <= y; j++)
             {
-                char s;
-                cin >> s;
-                if (s == '#')
+                if ((k / (i * j)) <= z && (k % (i * j) == 0))
                 {
-                    a = min(a, i);
-                    b = max(b, i);
-                    c = min(c, j);
-                    d = max(d, j);
+                    ll a = (x - i + 1) * (y - j + 1) * (z - (k / (i * j)) + 1);
+                    ans = max(ans, a);
                 }
             }
         }
-        cout << (b + a + 1) / 2 << " " << (d + c + 1) / 2 << endl;
+        cout << ans << endl;
     }
     return 0;
 }

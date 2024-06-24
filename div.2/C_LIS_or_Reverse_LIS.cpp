@@ -22,14 +22,24 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, a, b;
-        cin >> n >> a >> b;
-        ll k = max(0LL, min({n, b, (b - a)}));
-        // ll s = k * (2 * b - k + 1) / 2;
-        ll s = (b * (b + 1)) / 2 - ((b - k) * (b - k + 1)) / 2;
-        ll r = n - k;
-        ll ans = s + r * a;
-        ans = max(ans, n * a);
+        int n;
+        cin >> n;
+        int a[n];
+        map<int, int> mp;
+        for (int i = 0; i < n; i++)
+        {
+            cin >> a[i];
+            mp[a[i]]++;
+        }
+        ll c = 0, ans = 0;
+        for (auto u : mp)
+        {
+            if (u.second == 1)
+                c++;
+            else
+                ans++;
+        }
+        ans += (c + 1) / 2;
         cout << ans << endl;
     }
     return 0;

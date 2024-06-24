@@ -22,14 +22,27 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, a, b;
-        cin >> n >> a >> b;
-        ll k = max(0LL, min({n, b, (b - a)}));
-        // ll s = k * (2 * b - k + 1) / 2;
-        ll s = (b * (b + 1)) / 2 - ((b - k) * (b - k + 1)) / 2;
-        ll r = n - k;
-        ll ans = s + r * a;
-        ans = max(ans, n * a);
+        int n, k, d, w;
+        cin >> n >> k >> d >> w;
+        vector<ll> v(n);
+        for (int i = 0; i < n; i++)
+            cin >> v[i];
+
+        int x = v[0];
+        int ans = 0, c = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (v[i] - x - w > d || c >= k)
+            {
+                ans++;
+                x = v[i];
+                c = 1;
+            }
+            else
+                c++;
+        }
+        if (c > 0)
+            ans++;
         cout << ans << endl;
     }
     return 0;

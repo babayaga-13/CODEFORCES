@@ -22,15 +22,21 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, a, b;
-        cin >> n >> a >> b;
-        ll k = max(0LL, min({n, b, (b - a)}));
-        // ll s = k * (2 * b - k + 1) / 2;
-        ll s = (b * (b + 1)) / 2 - ((b - k) * (b - k + 1)) / 2;
-        ll r = n - k;
-        ll ans = s + r * a;
-        ans = max(ans, n * a);
-        cout << ans << endl;
+        int x, N = 32768;
+        cin >> x;
+        if (x % N == 0)
+        {
+            cout << "0 ";
+            continue;
+        }
+        int ans = 16;
+        for (int i = 0; i <= 15; i++)
+        {
+            int n = x + i, c = 0;
+            c = __builtin_ctz(n);
+            ans = min(ans, 15 - c + i);
+        }
+        cout << ans << " ";
     }
     return 0;
 }

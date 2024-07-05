@@ -22,30 +22,34 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll h, n;
-        cin >> h >> n;
-        vector<ll> a(n), c(n);
+        int n, k;
+        cin >> n >> k;
+        string s;
+        cin >> s;
+        int ans = 0, f = -1, l = -1;
         for (int i = 0; i < n; i++)
-            cin >> a[i];
-
-        for (int i = 0; i < n; i++)
-            cin >> c[i];
-
-        priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq;
-        for (int i = 0; i < n; i++)
-            pq.push({1, i});
-
-        ll ans = 0;
-        while (h > 0)
         {
-            ans = pq.top().first;
-            int x = pq.top().second;
-            pq.pop();
-            h -= a[x];
-            pq.push({ans + c[x], x});
+            if (s[i] == '1')
+            {
+                f = i;
+                break;
+            }
         }
+        for (int i = n - 1; i > 0; i--)
+        {
+            if (s[i] == '1')
+            {
+                l = i;
+                break;
+            }
+        }
+        if (l == -1 && f == -1)
+        {
+            cout << (n / k) << endl;
+            continue;
+        }
+
         cout << ans << endl;
     }
-
     return 0;
 }

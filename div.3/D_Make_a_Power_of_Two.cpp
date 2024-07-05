@@ -12,40 +12,40 @@ using namespace std;
 
 template <typename T>
 using pbds = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
+vector<string> v;
+const ll N = (ll)2e18;
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
+    for (ll p2 = 1; p2 <= N; p2 *= 2)
+        v.push_back(to_string(p2));
     int t = 1;
     cin >> t;
     while (t--)
     {
-        ll h, n;
-        cin >> h >> n;
-        vector<ll> a(n), c(n);
-        for (int i = 0; i < n; i++)
-            cin >> a[i];
-
-        for (int i = 0; i < n; i++)
-            cin >> c[i];
-
-        priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq;
-        for (int i = 0; i < n; i++)
-            pq.push({1, i});
-
-        ll ans = 0;
-        while (h > 0)
+        string n;
+        cin >> n;
+        int ans = n.length() + 1;
+        for (auto u : v)
         {
-            ans = pq.top().first;
-            int x = pq.top().second;
-            pq.pop();
-            h -= a[x];
-            pq.push({ans + c[x], x});
+            int i = 0, j = 0, c = 0;
+            int a = n.size(), b = u.size();
+
+            while (i < n.size() && j < u.size())
+            {
+                if (n[i] == u[j])
+                {
+                    j++;
+                    c++;
+                }
+                i++;
+            }
+
+            ans = min(ans, (a - c + b - c));
         }
         cout << ans << endl;
     }
-
     return 0;
 }

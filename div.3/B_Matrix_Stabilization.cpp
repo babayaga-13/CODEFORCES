@@ -3,60 +3,78 @@
 #define endl "\n"
 #define yes cout << "YES" << endl
 #define no cout << "NO" << endl
+
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
+
 using namespace std;
+
+template <typename T>
+using pbds = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
 int main()
 {
-    int bn, pn;
-
-    cout << endl
-         << "Enter bloc no : ";
-    cin >> bn;
-    int block[bn];
-    for (int i = 0; i < bn; i++)
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        cout << "Enter memory for block " << i + 1 << " : ";
-        cin >> block[i];
-    }
-    int alloc[bn];
-    for (int i = 0; i < bn; i++)
-    {
-        alloc[i] = -1;
-    }
-    cout << endl
-         << "Enter processes no : ";
-    cin >> pn;
-    int mp[pn];
-    for (int i = 0; i < pn; i++)
-    {
-        cout << "Enter memory for process " << i + 1 << " : ";
-        cin >> mp[i];
-    }
-    cout << endl
-         << "PROCESS\tMEMORY REQUIRED\tALLOCATEDtInternal Fragmentation\n";
-    for (int i = 0; i < pn; i++)
-    {
-        cout << endl
-             << i + 1 << "\t\t" << mp[i] << "\t\t";
-        for (int j = 0; j < bn; j++)
+        int n, m;
+        cin >> n >> m;
+        int a[n][m];
+        for (int i = 0; i < n; i++)
         {
-            if (alloc[j] == -1)
+            for (int j = 0; j < m; j++)
+                cin >> a[i][j];
+        }
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
             {
-                if (mp[i] <= block[j])
+                int x = 0;
+                if (i != (n - 1))
                 {
-                    alloc[j] = 0;
-                    cout << "\t\t Allocated" << "\t" << block[j] - mp[i] << endl;
-                    break;
+                    if (a[i][j] > a[i + 1][j])
+                        x = max(x, a[i + 1][j]);
+                    else
+                        continue;
                 }
-                else
+                if (i != 0)
                 {
-                    if (j == bn - 1)
-                    {
-                        cout << "\t\t Unallocated" << endl;
-                    }
+                    if (a[i][j] > a[i - 1][j])
+                        x = max(x, a[i - 1][j]);
+                    else
+                        continue;
                 }
+                if (j != 0)
+                {
+                    if (a[i][j] > a[i][j - 1])
+                        x = max(x, a[i][j - 1]);
+                    else
+                        continue;
+                }
+                if (j != (m - 1))
+                {
+                    if (a[i][j] > a[i][j + 1])
+                        x = max(x, a[i][j + 1]);
+                    else
+                        continue;
+                }
+                a[i][j] = x;
             }
         }
-    }
 
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                cout << a[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
     return 0;
 }

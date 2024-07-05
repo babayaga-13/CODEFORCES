@@ -18,31 +18,28 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-    int t = 1;
+
+    int t;
     cin >> t;
+
     while (t--)
     {
-        ll h, n;
-        cin >> h >> n;
-        vector<ll> a(n), c(n);
-        for (int i = 0; i < n; i++)
-            cin >> a[i];
-
-        for (int i = 0; i < n; i++)
-            cin >> c[i];
-
-        priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq;
-        for (int i = 0; i < n; i++)
-            pq.push({1, i});
-
-        ll ans = 0;
-        while (h > 0)
+        string a, b;
+        cin >> a >> b;
+        int n = a.size(), m = b.size();
+        int ans = n + m;
+        for (int i = 0; i < m; i++)
         {
-            ans = pq.top().first;
-            int x = pq.top().second;
-            pq.pop();
-            h -= a[x];
-            pq.push({ans + c[x], x});
+            int c = 0, indx = i;
+            for (int j = 0; j < n && indx < m; j++)
+            {
+                if (a[j] == b[indx])
+                {
+                    c++;
+                    indx++;
+                }
+            }
+            ans = min(ans, n + m - c);
         }
         cout << ans << endl;
     }

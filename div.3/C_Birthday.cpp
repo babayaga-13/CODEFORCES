@@ -19,33 +19,27 @@ int main()
     cin.tie(NULL);
     cout.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
-        ll h, n;
-        cin >> h >> n;
-        vector<ll> a(n), c(n);
+        int n;
+        cin >> n;
+        vector<int> v(n);
         for (int i = 0; i < n; i++)
-            cin >> a[i];
-
+            cin >> v[i];
+        sort(v.begin(), v.end());
+        vector<int> a;
         for (int i = 0; i < n; i++)
-            cin >> c[i];
-
-        priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq;
-        for (int i = 0; i < n; i++)
-            pq.push({1, i});
-
-        ll ans = 0;
-        while (h > 0)
         {
-            ans = pq.top().first;
-            int x = pq.top().second;
-            pq.pop();
-            h -= a[x];
-            pq.push({ans + c[x], x});
+            if (i % 2 == 0)
+                cout << v[i] << " ";
         }
-        cout << ans << endl;
+        for (int i = n - 1; i > 0; i--)
+        {
+            if (i % 2 != 0)
+                cout << v[i] << " ";
+        }
+        cout << endl;
     }
-
     return 0;
 }

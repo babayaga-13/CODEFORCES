@@ -27,25 +27,20 @@ int main()
         int x;
         cin >> x;
         vector<int> v;
-
-        while (x != 0)
+        while (x > 0)
         {
-            if ((x & 1) == 0)
+            if ((x & 1) == 1 && (x & 2) == 2)
             {
-                v.push_back(0);
-                x >>= 1;
-            }
-            else if ((x & 3) == 1)
-            {
-                v.push_back(1);
-                x >>= 1;
+                v.push_back(-1);
+                x++;
             }
             else
             {
-                v.push_back(-1);
-                x = (x + 1) >> 1;
+                v.push_back(x & 1);
             }
+            x >>= 1;
         }
+
         cout << v.size() << endl;
         for (auto u : v)
             cout << u << " ";

@@ -22,17 +22,32 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, k;
-        cin >> n >> k;
-        vector<int> v(n);
-        int x = 1;
+        int n, k, d;
+        cin >> n >> k >> d;
+        int a[n];
         for (int i = 0; i < n; i++)
+            cin >> a[i];
+        int ans = INT_MAX;
+        set<int> s;
+        map<int, int> mp;
+        int l = 0, h = 0;
+        while (h < n)
         {
-            cin >> v[i];
-            if (v[i] == x)
-                x++;
+            s.insert(a[h]);
+            mp[a[h]]++;
+            if (h - l + 1 >= d)
+            {
+                ans = min(ans, (int)s.size());
+                mp[a[l]]--;
+                if (mp[a[l]] == 0)
+                {
+                    s.erase(a[l]);
+                }
+                l++;
+            }
+            h++;
         }
-        cout << ceil((float)(n - x + 1) / k) << endl;
+        cout << ans << endl;
     }
     return 0;
 }

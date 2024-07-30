@@ -52,18 +52,18 @@ int main()
                 r = mid - 1;
         }
 
-        ll sum = 0;
+        ll sum = 0, cnt = 0;
         for (int i = 0; i < n; i++)
         {
             if (a[i] >= ans)
             {
                 ll c = (a[i] - ans) / b[i] + 1;
-                k -= c;
+                cnt += c;
                 sum += a[i] * c;
                 sum -= c * b[i] * (c - 1) / 2;
             }
         }
-        sum += k * ans;
+        sum -= (cnt - k) * ans;
         cout << sum << endl;
     }
 

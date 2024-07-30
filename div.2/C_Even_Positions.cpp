@@ -28,6 +28,7 @@ int main()
         string s;
         cin >> s;
         s = " " + s;
+<<<<<<< HEAD
         ll ans = 0;
         for (int i = 2; i <= n; i += 2)
         {
@@ -55,6 +56,30 @@ int main()
         //         a.pop_back();
         //     }
         // }
+=======
+        for (int i = 1; i <= n; i++)
+        {
+            if (i % 2)
+            {
+                if (i == 1 || s[i - 1] == ')')
+                    s[i] = '(';
+                else
+                    s[i] = ')';
+            }
+        }
+        ll ans = 0;
+        vector<int> a;
+        for (int i = 1; i <= n; i++)
+        {
+            if (s[i] == '(')
+                a.push_back(i);
+            else if (s[i] == ')')
+            {
+                ans += i - a.back();
+                a.pop_back();
+            }
+        }
+>>>>>>> bdf6a2f2a55972e1c0c0170b5584b3cd6b1e91f2
         cout << ans << endl;
     }
 
